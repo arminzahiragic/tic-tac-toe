@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Board from './Board';
 import GameResultModal from "./GameResultModal";
+import GameModeSelector from "./GameModeSelector"; 
 
 const App = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
@@ -8,9 +9,13 @@ const App = () => {
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [vsComputer, setVsComputer] = useState(false);
+  const [isComputerTurn, setIsComputerTurn] = useState(false);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [xScore, setXScore] = useState(0);
+  const [oScore, setOScore] = useState(0);
 
   useEffect(() => {
-    if (vsComputer && !xIsNext) {
+    if (vsComputer && !xIsNext && isComputerTurn) {
       // If it's the computer's turn, choose a random square
       setTimeout(() => {
         const emptySquares = squares.reduce(
@@ -18,10 +23,13 @@ const App = () => {
           []
         );
         const randomIndex = Math.floor(Math.random() * emptySquares.length);
-        handleClick(emptySquares[randomIndex]);
+        const squareIndexToUpdate = emptySquares[randomIndex];
+        setIsComputerTurn(false);
+        handleClick(squareIndexToUpdate);
       }, 1000); // Delay the computer's move by 1 second to make it more realistic
     }
-  }, [squares, xIsNext, vsComputer]);
+  }, [squares, xIsNext, vsComputer, isComputerTurn]);
+  
 
   function handleClick(i) {
     const newSquares = [...squares];
@@ -35,6 +43,29 @@ const App = () => {
     if (newWinner || newSquares.every((square) => square !== null)) {
       setWinner(newWinner);
       setShowModal(true);
+      if (newWinner === 'X') {
+        setXScore(xScore + 1);
+      } else if (newWinner === 'O') {
+        setOScore(oScore + 1);
+      }
+    }
+
+    if (vsComputer && xIsNext) {
+      setIsComputerTurn(true);
+    }
+
+    setHistory([...history, newSquares]);
+  }
+  
+  function handleUndo() {
+    if (history.length > 1) { // Check if history has more than 1 item
+      const newHistory = [...history];
+      newHistory.pop(); // Remove last item from history
+      setHistory(newHistory);
+      const newSquares = newHistory[newHistory.length - 1]; // Get the last item in history
+      setSquares(newSquares);
+      setXIsNext(!xIsNext);
+      setIsComputerTurn(true);
     }
   }
 
@@ -46,14 +77,22 @@ const App = () => {
     if (squares.every((square) => square)) {
       return 'Draw';
     }
-    return `Next player: ${xIsNext ? 'X' : 'O'}`;
+    return (
+      <>
+        <div>Next player: {xIsNext ? 'X' : 'O'}</div>
+        <div>Score: X {xScore} - O {oScore}</div>
+        <button onClick={handleUndo}>Undo</button>
+      </>
+    );
   };
+  
 
   function resetGame() {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
     setWinner(null);
     setShowModal(false);
+    setIsComputerTurn(false);
   }
 
   function toggleVsComputer() {
@@ -89,27 +128,15 @@ const App = () => {
       <div className="game-info">
         <div>{renderStatus()}</div>
         {showModal && (
-        <GameResultModal
-          winner={winner}
-          onClose={() => setShowModal(false)}
-        />
-      )}
-        <button className="reset-button" onClick={() => resetGame()}>
-        Reset
-      </button>
-      {vsComputer && (
-          <label>
-            <input
-              type="checkbox"
-              checked={vsComputer}
-              onChange={toggleVsComputer}
-            />
-            Play against a human
-          </label>
+          <GameResultModal winner={winner} onClose={() => setShowModal(false)} />
         )}
+        <button className="reset-button" onClick={() => resetGame()}>
+          Reset
+        </button>
+        <div><GameModeSelector vsComputer={vsComputer} onChange={toggleVsComputer} /></div>
       </div>
     </div>
-  );
+  );  
 };
 
 export default App;
