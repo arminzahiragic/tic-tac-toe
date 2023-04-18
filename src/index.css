@@ -1,0 +1,59 @@
+.game {
+    display: flex;
+    flex-direction: column; /* changed to column */
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .game-board {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 5px solid #000;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+    margin-bottom: 30px; /* added margin to separate button */
+  }
+  
+  .square {
+    background: #fff;
+    border: 1px solid #999;
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 1;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    vertical-align: top;
+  }
+  
+  .square:focus,
+  .square:hover {
+    background: #ddd;
+    outline: none;
+  }
+  
+  .game-info {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .reset-button {
+    margin-bottom: 30px; /* added margin to separate button */
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin-top: 15px;
+ }
+  
