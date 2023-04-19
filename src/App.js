@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Board from './Board';
-import GameResultModal from "./GameResultModal";
-import GameModeSelector from "./GameModeSelector"; 
+import Board from './components/Board';
+import GameResultModal from "./components/GameResultModal";
+import GameModeSelector from "./components/GameModeSelector"; 
 
 const App = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
@@ -79,9 +79,9 @@ const App = () => {
     }
     return (
       <>
-        <div>Next player: {xIsNext ? 'X' : 'O'}</div>
-        <div>Score: X {xScore} - O {oScore}</div>
-        <button onClick={handleUndo}>Undo</button>
+        <div className="next-player">Next player: {xIsNext ? 'X' : 'O'}</div>
+        <div className="score-counter">Score: X {xScore} - O {oScore}</div>
+       
       </>
     );
   };
@@ -133,6 +133,7 @@ const App = () => {
         <button className="reset-button" onClick={() => resetGame()}>
           Reset
         </button>
+        <button className="undo-button" onClick={handleUndo}>Undo</button>
         <div><GameModeSelector vsComputer={vsComputer} onChange={toggleVsComputer} /></div>
       </div>
     </div>

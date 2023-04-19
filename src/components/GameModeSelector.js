@@ -2,7 +2,7 @@ import React from "react";
 
 const GameModeSelector = ({ vsComputer, onChange }) => {
   return (
-    <label>
+    <label className="play-against-computer">
       <input
         type="checkbox"
         checked={vsComputer}

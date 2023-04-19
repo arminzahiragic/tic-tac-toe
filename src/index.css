@@ -50,10 +50,55 @@
     margin-bottom: 30px; /* added margin to separate button */
     font-size: 16px;
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: #9d72e7;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 22px;
     margin-top: 15px;
  }
+
+ .undo-button {
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #c2cf60;
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  margin-top: 15px;
+}
   
+ .play-against-computer {
+  color: blue;
+  font-size: 19px;
+  margin-top: 0;
+}
+
+
+input[type="checkbox"] {
+  /* ...existing styles */
+  display: inline-block;
+  place-content: center;
+}
+
+/* input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+} */
+
+.next-player {
+  color: #c2cf60;
+   
+
+}
+
+.score-counter {
+  color: #9d72e7;
+}
