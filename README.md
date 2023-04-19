@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <title>Title of the document</title>
 </head>
 
@@ -18,7 +21,7 @@ $ git clone https://github.com/arminzahiragic/tic-tac-toe</p>
 
 <li>
 <p>Go into the repository<br>
-$ cd TIC-TAC-TOE-GAME </p>
+$ cd tic-tac-toe </p>
 </li>
 
 <li>
